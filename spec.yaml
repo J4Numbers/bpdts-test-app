@@ -1,0 +1,72 @@
+swagger: "2.0"
+info:
+  description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+  version: "1.0.0"
+  title: "Swagger Petstore"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+schemes:
+- "https"
+- "http"
+paths:
+  /city:
+    get:
+      summary: "Get the list of available cities"
+      description: "Get the list of available cities"
+      operationId: "getCities"
+      produces: 
+      - "application/json"
+      responses:
+        "200":
+          description: "List of cities that can be polled"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+  /city/{city}/users:
+    get:
+      summary: "Return a list of users within the given city"
+      description: "Return a list of users within the given city"
+      operationId: "findUsersInCity"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "city"
+        description: "City to check users of"
+        required: true
+        type: "string"
+      - in: "query"
+        name: "max_distance"
+        description: "Maximum distance away to include from the city"
+        required: false
+        type: "integer"
+      responses:
+        "200":
+          description: "List of users within a given city"
+          schema:
+            type: "array"
+            items:
+              $ref: '#/definitions/User'
+        "404":
+          description: "City not found"
+definitions:
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      first_name:
+        type: "string"
+      last_name:
+        type: "string"
+      email: 
+        type: "string"
+      ip_address:
+        type: "string"
+
