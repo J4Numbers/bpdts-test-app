@@ -8,7 +8,7 @@ info:
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "localhost"
 schemes:
-- "http"
+  - "http"
 paths:
   /city:
     get:
@@ -16,7 +16,7 @@ paths:
       description: "Get the list of available cities"
       operationId: "getCities"
       produces:
-      - "application/json"
+        - "application/json"
       responses:
         "200":
           description: "List of cities that can be polled"
@@ -30,18 +30,19 @@ paths:
       description: "Return a list of users within the given city"
       operationId: "findUsersInCity"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "path"
-        name: "city"
-        description: "City to check users of"
-        required: true
-        type: "string"
-      - in: "query"
-        name: "max_distance"
-        description: "Maximum distance away to include from the city"
-        required: false
-        type: "integer"
+        - in: "path"
+          name: "city"
+          description: "City to check users of"
+          required: true
+          type: "string"
+        - in: "query"
+          name: "max_distance"
+          description: "Maximum distance away to include from the city"
+          default: 0
+          required: false
+          type: "integer"
       responses:
         "200":
           description: "List of users within a given city"
