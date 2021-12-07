@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import uk.co.j4numbers.exceptions.CityNotFoundException;
 import uk.co.j4numbers.pojo.User;
 import uk.co.j4numbers.service.CityService;
 
@@ -29,9 +30,9 @@ public class CityController {
   }
 
   @GetMapping(value = "/city/{cityName}/users", produces = {"application/json"})
-  public ResponseEntity<List<User>> getListOfUsersNearCity(@PathVariable String cityName) {
+  public ResponseEntity<List<User>> getListOfUsersNearCity(@PathVariable String cityName) throws CityNotFoundException {
     LOGGER.debug("City name of {} was provided", cityName);
-    return ResponseEntity.ok(Collections.emptyList());
+    return ResponseEntity.ok(cityService.getAllUsersNearGivenCity(cityName, 0));
   }
 
 }

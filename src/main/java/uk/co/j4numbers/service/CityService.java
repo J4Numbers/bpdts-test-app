@@ -1,10 +1,13 @@
 package uk.co.j4numbers.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import uk.co.j4numbers.data.CityLookup;
+import uk.co.j4numbers.exceptions.CityNotFoundException;
 import uk.co.j4numbers.pojo.City;
+import uk.co.j4numbers.pojo.User;
 
 @Service
 public class CityService {
@@ -20,6 +23,13 @@ public class CityService {
         .stream()
         .map(City::getCityName)
         .collect(Collectors.toList());
+  }
+
+  public List<User> getAllUsersNearGivenCity(final String cityName, final Integer distance) throws CityNotFoundException {
+    if (getAllAvailableCities().contains(cityName)) {
+      return Collections.emptyList();
+    }
+    throw new CityNotFoundException(String.format("City name of %s was not found", cityName));
   }
 
 }
