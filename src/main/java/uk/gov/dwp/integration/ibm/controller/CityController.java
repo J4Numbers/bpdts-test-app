@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import uk.gov.dwp.integration.ibm.exceptions.CityNotFoundException;
+import uk.gov.dwp.integration.ibm.exceptions.NegativeDistanceException;
 import uk.gov.dwp.integration.ibm.pojo.User;
 import uk.gov.dwp.integration.ibm.service.CityService;
 
@@ -30,7 +31,7 @@ public class CityController {
   }
 
   @GetMapping(value = "/city/{cityName}/users", produces = {"application/json"})
-  public ResponseEntity<List<User>> getListOfUsersNearCity(@PathVariable String cityName) throws CityNotFoundException {
+  public ResponseEntity<List<User>> getListOfUsersNearCity(@PathVariable String cityName) throws CityNotFoundException, NegativeDistanceException {
     LOGGER.debug("City name of {} was provided", cityName);
     return ResponseEntity.ok(cityService.getAllUsersNearGivenCity(cityName, 0));
   }
